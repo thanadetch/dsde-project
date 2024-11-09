@@ -6,5 +6,5 @@
 *.iml
 out
 gen
-Project
+project/data
 .venv
