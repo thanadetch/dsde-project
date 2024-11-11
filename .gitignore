@@ -9,3 +9,4 @@ gen
 project/data
 .venv
 .ipynb_checkpoints
+.env
