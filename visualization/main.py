@@ -158,7 +158,9 @@ class DashBoard:
 
 
 # Data loading and dashboard initialization
-DATA_PATH = "../project/documents_output/part-00000-2bc88585-90a9-4d9e-bc42-b0025e3349d1-c000.csv"
+DATA_PATH = (
+    "project/documents_output/part-00000-2bc88585-90a9-4d9e-bc42-b0025e3349d1-c000.csv"
+)
 df = pd.read_csv(DATA_PATH, on_bad_lines="skip", engine="python")
 
 dashboard = DashBoard(df)
