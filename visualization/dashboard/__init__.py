@@ -7,7 +7,7 @@ import seaborn as sns
 from visualization.utils import explode_semi_colon_separated_series
 
 
-class DashBoard:
+class Dashboard:
     def __init__(self, df):
         self.df = self.transform_data(df)
 
