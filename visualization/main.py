@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
 from wordcloud import WordCloud
-
+import seaborn as sns
 
 def explode_semi_colon_separated_serie(keyword_serie):
     keyword_serie = keyword_serie[keyword_serie.apply(lambda x: isinstance(x, str))]
@@ -159,7 +159,7 @@ class DashBoard:
 
 # Data loading and dashboard initialization
 DATA_PATH = (
-    "project/documents_output/part-00000-2bc88585-90a9-4d9e-bc42-b0025e3349d1-c000.csv"
+    "project/documents_output/part-00000-e0abf9f5-4161-4b09-b8b0-e555126f4fbe-c000.csv"
 )
 df = pd.read_csv(DATA_PATH, on_bad_lines="skip", engine="python")
 
