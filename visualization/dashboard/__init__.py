@@ -1,27 +1,16 @@
 import pandas as pd
 import streamlit as st
+from pandas import DataFrame
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from visualization.utils import explode_semi_colon_separated_series
+from visualization.utils import explode_semi_colon_separated_series, transform_data
 
 
 class Dashboard:
-    def __init__(self, df):
-        self.df = self.transform_data(df)
-
-    def transform_data(self, df):
-        df["document_id"] = df["document_id"].astype("string")
-        df["affiliation_countries"] = df["affiliation_countries"].astype("string")
-        df["affiliation_cities"] = df["affiliation_cities"].astype("string")
-        df["affiliation_names"] = df["affiliation_names"].astype("string")
-        df["title"] = df["title"].astype("string")
-        df["description"] = df["description"].astype("string")
-        df["publication_date"] = pd.to_datetime(df["publication_date"], errors="coerce")
-        df["keywords"] = df["keywords"].astype("string")
-        df["publisher"] = df["publisher"].astype("string")
-        return df
+    def __init__(self, df: DataFrame):
+        self.df = transform_data(df)
 
     def keywords(self, df):
         keywords_string = " ".join(explode_semi_colon_separated_series(df["keywords"]))
