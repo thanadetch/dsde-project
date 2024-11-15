@@ -20,23 +20,16 @@ st.title("Enhanced Data Visualization Dashboard")
 # Arrange visualizations with wide columns
 st.subheader("Overview of Key Data Insights")
 
-# 1. Publication Counts by Year
 dashboard.publication_counts_by_year()
 
-# 2. Top 10 Keywords with Custom Color
 dashboard.top_keywords()
 
-# 3. Top 10 Affiliation Countries with Custom Color
 dashboard.top_affiliation_countries()
 
-# 4. Word Cloud of Titles with Custom Color
 dashboard.word_cloud_of_titles()
 
-# 5. Publisher Activity Over Time with Distinct Color Lines
+dashboard.top_publishers_by_number_of_publications()
+
 dashboard.publisher_activity_over_time()
 
-# 6. Title Length Distribution with Custom Color
-dashboard.title_length_distribution()
-
-# 7. Data Table Preview
 dashboard.data_table_preview()
