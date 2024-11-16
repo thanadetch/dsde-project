@@ -1,101 +1,14 @@
-import pandas as pd
 import streamlit as st
 from pandas import DataFrame
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
-import seaborn as sns
 
-from visualization.utils import explode_semi_colon_separated_series, transform_data
+from visualization.utils import transform_data
 
 
 class Dashboard:
     def __init__(self, df: DataFrame):
         self.df = transform_data(df)
-
-    def keywords(self, df):
-        keywords_string = " ".join(explode_semi_colon_separated_series(df["keywords"]))
-        return keywords_string
-
-    def plot_wordcloud(self, df):
-        keywords_string = self.keywords(df)
-        wordcloud = WordCloud(width=800, height=400, background_color="white").generate(
-            keywords_string
-        )
-        # Create a figure and pass it to st.pyplot
-        fig = plt.figure(figsize=(8, 6))
-        plt.imshow(wordcloud, interpolation="bilinear")
-        plt.axis("off")
-        st.pyplot(fig)
-
-    def plot_document_count_by_country(self, df):
-        country_counts = df["affiliation_countries"].value_counts()
-        # Create a figure and pass it to st.pyplot
-        fig, ax = plt.subplots(figsize=(8, 6))
-        country_counts.plot(kind="bar", color="skyblue", ax=ax)
-        ax.set_title("Document Count by Affiliation Country")
-        ax.set_xlabel("Country")
-        ax.set_ylabel("Number of Documents")
-        st.pyplot(fig)
-
-    def plot_document_count_by_city(self, df):
-        city_counts = df["affiliation_cities"].value_counts()
-        # Create a figure and pass it to st.pyplot
-        fig, ax = plt.subplots(figsize=(8, 6))
-        city_counts.plot(kind="bar", color="lightgreen", ax=ax)
-        ax.set_title("Document Count by Affiliation City")
-        ax.set_xlabel("City")
-        ax.set_ylabel("Number of Documents")
-        st.pyplot(fig)
-
-    def plot_document_count_by_publisher(self, df):
-        publisher_counts = df["publisher"].value_counts()
-        # Create a figure and pass it to st.pyplot
-        fig, ax = plt.subplots(figsize=(8, 6))
-        publisher_counts.plot(kind="bar", color="lightblue", ax=ax)
-        ax.set_title("Document Count by Publisher")
-        ax.set_xlabel("Publisher")
-        ax.set_ylabel("Number of Documents")
-        st.pyplot(fig)
-
-    def plot_affiliation_country_distribution(self, df):
-        # If there are multiple countries
-        countries = explode_semi_colon_separated_series(df["affiliation_countries"])
-        country_counts = pd.Series(countries).value_counts()
-
-        # Get the top 10 countries
-        top_10_countries = country_counts.head(10).sort_values(ascending=True)
-
-        # Create a figure and pass it to st.pyplot
-        fig, ax = plt.subplots(figsize=(10, 6))
-        top_10_countries.plot(
-            kind="barh", color="lightblue", ax=ax
-        )  # horizontal bar chart
-        ax.set_title("Top 10 Document Count by Affiliation Countries")
-        ax.set_xlabel("Number of Documents")
-        ax.set_ylabel("Country")
-        st.pyplot(fig)
-
-    def plot_publication_date_distribution(self, df):
-        df["publication_year"] = df["publication_date"].dt.year
-        publication_counts = df["publication_year"].value_counts().sort_index()
-        # Create a figure and pass it to st.pyplot
-        fig, ax = plt.subplots(figsize=(8, 6))
-        publication_counts.plot(kind="bar", color="lightcoral", ax=ax)
-        ax.set_title("Document Count by Publication Year")
-        ax.set_xlabel("Year")
-        ax.set_ylabel("Number of Documents")
-        st.pyplot(fig)
-
-    def plot_correlation_heatmap(self, df):
-        # If there are numeric columns, we can plot a correlation heatmap
-        numeric_columns = df.select_dtypes(include=["number"]).columns
-        if len(numeric_columns) > 0:
-            corr = df[numeric_columns].corr()
-            # Create a figure and pass it to st.pyplot
-            fig, ax = plt.subplots(figsize=(8, 6))
-            sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f", ax=ax)
-            ax.set_title("Correlation Heatmap")
-            st.pyplot(fig)
 
     def publication_counts_by_year(self):
         st.subheader("Publication Counts by Year")
@@ -162,7 +75,8 @@ class Dashboard:
         fig, ax = plt.subplots(figsize=(8, 8))
         top_10_publishers.plot.pie(autopct='%1.1f%%', ax=ax, legend=False)
         ax.set_ylabel("")  # Remove the y-axis label for a cleaner look
-        ax.set_title("Top 10 Publishers by Number of Publications", fontsize=14)  # Add title to the chart itself for clarity
+        ax.set_title("Top 10 Publishers by Number of Publications",
+                     fontsize=14)  # Add title to the chart itself for clarity
 
         # Display the chart in Streamlit
         st.pyplot(fig)
