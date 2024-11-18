@@ -7,7 +7,7 @@ import streamlit as st
 from utils import get_df_from_csv
 from dashboard import Dashboard
 
-data_path = "project/documents_output/part-00000-e0abf9f5-4161-4b09-b8b0-e555126f4fbe-c000.csv"
+data_path = "data_visualization/documents_output/part-00000-e0abf9f5-4161-4b09-b8b0-e555126f4fbe-c000.csv"
 data_df = get_df_from_csv(data_path)
 dashboard = Dashboard(data_df)
 
