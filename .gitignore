@@ -6,7 +6,7 @@
 *.iml
 out
 gen
-data_visualization/data
+data_pipeline/data
 .venv
 .ipynb_checkpoints
 .env
